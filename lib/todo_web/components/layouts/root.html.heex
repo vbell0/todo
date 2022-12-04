@@ -11,8 +11,8 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-white antialiased">
-    <header class="px-4 sm:px-6 lg:px-8">
+  <body class="bg-orange-300 antialiased">
+    <header class="px-4 sm:px-6 lg:px-8 bg-white">
       <div class="flex items-center justify-between border-b border-zinc-100 py-3">
         <div class="flex items-center gap-4">
           <a href="/">
@@ -28,7 +28,6 @@
               Settings
             </a>
             <a
-              data-method="delete"
               href={~p"/users/log_out"}
               class="text-[0.8125rem] font-semibold leading-6 text-zinc-900 hover:bg-gray-300 p-3 rounded-md"
             >

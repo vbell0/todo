@@ -26,7 +26,6 @@ defmodule TodoWeb.UserSessionController do
       |> put_flash(:info, info)
       |> UserAuth.log_in_user(user, user_params)
     else
-      # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
       |> put_flash(:error, "Invalid email or password")
       |> put_flash(:email, String.slice(email, 0, 160))
@@ -35,8 +34,6 @@ defmodule TodoWeb.UserSessionController do
   end
 
   def delete(conn, _params) do
-    IO.inspect("FUNCIONA")
-
     conn
     |> put_flash(:info, "Logged out successfully.")
     |> UserAuth.log_out_user()

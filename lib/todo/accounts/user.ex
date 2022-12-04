@@ -39,9 +39,16 @@ defmodule Todo.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :name])
+    |> cast(attrs, [:email, :password, :user_name])
     |> validate_email(opts)
+    |> validate_user_name(opts)
     |> validate_password(opts)
+  end
+
+  defp validate_user_name(changeset, _opts) do
+    changeset
+    |> validate_format(:user_name, ~r/^@/, message: "must have the @ first ")
+    |> validate_length(:user_name, min: 4, max: 30)
   end
 
   defp validate_email(changeset, opts) do

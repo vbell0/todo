@@ -17,12 +17,6 @@ defmodule TodoWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TodoWeb do
-    pipe_through :browser
-
-    live "/", HomeLive, :home
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", TodoWeb do
   #   pipe_through :api
@@ -45,6 +39,11 @@ defmodule TodoWeb.Router do
     end
   end
 
+  # scope "/", TodoWeb do
+  #   pipe_through :browser
+  #   
+  # end
+
   ## Authentication routes
 
   scope "/", TodoWeb do
@@ -66,6 +65,7 @@ defmodule TodoWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{TodoWeb.UserAuth, :ensure_authenticated}] do
+      live "/", HomeLive, :home
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
@@ -74,7 +74,7 @@ defmodule TodoWeb.Router do
   scope "/", TodoWeb do
     pipe_through [:browser]
 
-    delete "/users/log_out", UserSessionController, :delete
+    get "/users/log_out", UserSessionController, :delete
 
     live_session :current_user,
       on_mount: [{TodoWeb.UserAuth, :mount_current_user}] do
